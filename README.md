@@ -13,4 +13,4 @@ More information to follow...
 
 Inspiration, code snippets, etc.
 * [Bonukai's MediaTracker](https://github.com/bonukai/MediaTracker)
-* [Upcoming media card](Self hosted media tracker for movies, tv shows, video games, books and audiobooks)
+* [Upcoming media card](https://github.com/custom-cards/upcoming-media-card)
