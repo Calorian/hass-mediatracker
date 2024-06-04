@@ -1,4 +1,4 @@
-"""Constants for my custom component."""
+"""Constants for Media_Tracker component."""
 DOMAIN = "media_tracker"
 
 CONF_NAME = "name"

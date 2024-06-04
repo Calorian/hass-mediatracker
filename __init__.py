@@ -1,4 +1,4 @@
-"""My Custom Component init file."""
+"""Media_Tracker Component init file."""
 import logging
 import voluptuous as vol
 
@@ -38,7 +38,7 @@ async def async_setup(hass: HomeAssistant, config: dict):
     conf = config[DOMAIN]
     hass.data[DOMAIN] = conf
 
-    _LOGGER.info("Setting up my custom component with configuration: %s", conf)
+    _LOGGER.info("Setting up media_tracker component with configuration: %s", conf)
 
     # Load platforms (e.g., sensor)
     hass.async_create_task(
