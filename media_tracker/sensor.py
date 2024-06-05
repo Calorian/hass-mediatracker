@@ -106,18 +106,24 @@ class Media_TrackerSensor(Entity):
         return result_list
 
     async def _process_item(self, item: dict) -> dict:
+        detailed_json = await self._get_series_details(item['mediaItem']['id'])
         season_number = str(item['episode']['seasonNumber']).zfill(2)
         episode_number = str(item['episode']['episodeNumber']).zfill(2)
+
         add_item = {
-            'airdate': item['releaseDate'],
             'series_id': item['mediaItem']['id'],
+            'airdate': item['releaseDate'],
             'title': item['mediaItem']['title'],
-            'number': f"S{season_number}E{episode_number}",
-            'episode': item['episode']['title'],
             'release': item['episode']['releaseDate'],
-            'day': datetime.strptime(item['releaseDate'], '%Y-%m-%d').strftime('%A')
+            'episode': item['episode']['title'],
+            'number': f"S{season_number}E{episode_number}",
+            'season_num': season_number,
+            'episode_num': episode_number,
+            'genres': detailed_json['genres'],
+            'rating': detailed_json['tmdbRating'],
+            'runtime': detailed_json['runtime'],
+            'poster': detailed_json.get('externalPosterUrl', '').replace('original', 'w342>
+            'fanart': detailed_json.get('externalBackdropUrl', '').replace('original','w30>
+            'flag': item['episode']['seen'],
         }
-        detailed_json = await self._get_series_details(add_item['series_id'])
-        add_item['poster'] = detailed_json.get('externalPosterUrl', '').replace('original', 'w342')
-        add_item['fanart'] = detailed_json.get('externalBackdropUrl', '').replace('original','w300')
         return add_item
