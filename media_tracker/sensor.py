@@ -6,7 +6,7 @@ import logging
 
 import aiohttp
 from homeassistant.helpers.entity import Entity
-from .const import DOMAIN, CONF_NAME, CONF_SSL, CONF_HOST, CONF_PORT, CONF_TOKEN, CONF_DAYS
+from .const import DOMAIN, CONF_NAME, CONF_SSL, CONF_HOST, CONF_PORT, CONF_TOKEN, CONF_DAYS, CONF_JSON_ONLY
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -26,6 +26,7 @@ class Media_TrackerSensor(Entity):
         self._port = config.get(CONF_PORT)
         self._token = config.get(CONF_TOKEN)
         self._days = config.get(CONF_DAYS)
+        self._json_only = config.get(CONF_JSON_ONLY)
         self._baseurl = f"http{self._ssl}://{self._host}:{self._port}/api"
         self._state = None
         self._data = None
@@ -94,7 +95,11 @@ class Media_TrackerSensor(Entity):
         }
 
     async def _process_calendar_data(self, calendar_data: list) -> list:
-        result_list = [self._initialize_default()]
+        if self._json_only:
+            result_list = []
+        else:
+            result_list = [self._initialize_default()]
+
         tasks = [self._process_item(item) for item in calendar_data]
         processed_items = await asyncio.gather(*tasks)
         result_list.extend(processed_items)

@@ -21,6 +21,7 @@ This sensor can then be used to feed a lovelace card. By default the component a
          token: "your_api_token"
          days: number_of_days_to_track
          ssl: true_or_false
+         json_only: true_or_false
      ```
 
 3. **Restart Home Assistant**:
@@ -36,15 +37,17 @@ This sensor can then be used to feed a lovelace card. By default the component a
 - `token` (Required): Mediatracker authentication token for the API.
 - `days` (Optional): The number of days to look ahead for upcoming media events. *Default = 7*
 - `ssl` (Optional): Set to true if the API uses SSL (HTTPS). *Default = false*
+- `json_only` (Optional): Set to true if you only want JSON output.. *Default = false*
 
 ## 4. Version History
 
+* 0.2
+    * Added 'JSON_ONLY' setting for those not using Upcoming media card.
 * 0.1
     * Initial Release
 
 ## 5. Coming soon...
 
- - JSON only output for easier use with other lovelace cards etc
  - Extra sensors for MediaTracker lists (Watchlist etc.)
  - What to watch? - Grab a random next episode from the watchlist.
 
