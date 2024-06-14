@@ -46,7 +46,7 @@ This sensor can then be used to feed a lovelace card. By default the component a
 * 0.5
     * Added 'SMALL_IMG' setting for those looking to save bandwidth. 
 * 0.4
-    * Added deeplinks (to series view currently as this is more useful than mediatracker individual episode page IMO). 
+    * Added deeplinks to series view currently as this is more useful than mediatracker individual episode page IMO (tap on the item in Upcoming Media Card). 
 * 0.3
     * Added extra fields including seen/unseen flag. 
 * 0.2
@@ -60,8 +60,11 @@ This sensor can then be used to feed a lovelace card. By default the component a
 type: markdown
 content: |-
   {% for media_item in state_attr('sensor.mediatracker_upcoming', 'data') %} 
-    {% if 'title' in media_item %}
-    <img src="{{ media_item.fanart }}" width="75%"></img>
+  {% if 'title' in media_item %}
+    <a href="{{ media_item.deep_link }}">
+      <img src="{{ media_item.fanart }}" width="75%"></img>
+    </a>
+    
     **{{ media_item.title }}** *{{ media_item.release }}*    
     ({{ media_item.number }}) {{ media_item.episode }}
   {% endif %}
