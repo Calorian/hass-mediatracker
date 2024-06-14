@@ -1,7 +1,7 @@
 {
     "domain": "media_tracker",
     "name": "Media Tracker sensor",
-    "version": "0.3",
+    "version": "0.5",
     "codeowners": ["@calorian"],
     "documentation": "https://github.com/Calorian/hass-mediatracker/",
     "iot_class": "cloud_polling",

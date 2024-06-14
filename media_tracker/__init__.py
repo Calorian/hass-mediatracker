@@ -16,6 +16,7 @@ CONF_HOST = "host"
 CONF_PORT = "port"
 CONF_TOKEN = "token"
 CONF_DAYS = "days"
+CONF_SMALL_IMG = "small_img"
 CONF_JSON_ONLY = "json_only"
 
 CONFIG_SCHEMA = vol.Schema(
@@ -28,6 +29,7 @@ CONFIG_SCHEMA = vol.Schema(
                 vol.Optional(CONF_HOST, default='localhost'): cv.string,
                 vol.Optional(CONF_PORT, default=7481): cv.port,
                 vol.Optional(CONF_DAYS, default=7): cv.positive_int,
+                vol.Optional(CONF_SMALL_IMG, default=False): cv.boolean,
                 vol.Optional(CONF_JSON_ONLY, default=False): cv.boolean,
             }
         )

@@ -6,7 +6,7 @@ import logging
 
 import aiohttp
 from homeassistant.helpers.entity import Entity
-from .const import DOMAIN, CONF_NAME, CONF_SSL, CONF_HOST, CONF_PORT, CONF_TOKEN, CONF_DAYS, CONF_JSON_ONLY
+from .const import DOMAIN, CONF_NAME, CONF_SSL, CONF_HOST, CONF_PORT, CONF_TOKEN, CONF_DAYS, CONF_SMALL_IMG, CONF_JSON_ONLY
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -26,6 +26,7 @@ class Media_TrackerSensor(Entity):
         self._port = config.get(CONF_PORT)
         self._token = config.get(CONF_TOKEN)
         self._days = config.get(CONF_DAYS)
+        self._small_image = config.get(CONF_SMALL_IMG)
         self._json_only = config.get(CONF_JSON_ONLY)
         self._baseurl = f"http{self._ssl}://{self._host}:{self._port}/api"
         self._state = None
@@ -122,8 +123,9 @@ class Media_TrackerSensor(Entity):
             'genres': detailed_json['genres'],
             'rating': detailed_json['tmdbRating'],
             'runtime': detailed_json['runtime'],
-            'poster': detailed_json.get('externalPosterUrl', '').replace('original', 'w342>
-            'fanart': detailed_json.get('externalBackdropUrl', '').replace('original','w30>
             'flag': item['episode']['seen'],
+            'poster': detailed_json.get('externalPosterUrl', '').replace('original', 'w342') if self._small_image else detailed_json.get('externalPosterUrl', ''),
+            'fanart': detailed_json.get('externalBackdropUrl', '').replace('original', 'w300') if self._small_image else detailed_json.get('externalBackdropUrl', ''),
+            'deep_link': f"{self._baseurl}/#/seasons/{item['mediaItem']['id']}/{item['episode']['seasonNumber']}",
         }
         return add_item
